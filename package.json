@@ -1,0 +1,23 @@
+{
+  "name": "remote-video",
+  "version": "0.0.1",
+  "description": "Remote video utils with Javascript",
+  "main": "stream.js",
+  "scripts": {
+    "test": "echo \"No test yet specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geco/remote-video.git"
+  },
+  "keywords": [
+    "webcam",
+    "webm"
+  ],
+  "author": "geco (https://github.com/geco)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geco/remote-video/issues"
+  },
+  "homepage": "https://github.com/geco/remote-video#readme"
+}

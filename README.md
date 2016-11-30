@@ -1,5 +1,5 @@
 # Remote Video
-Remote video utils.
+Remote video utils with Javascript.
 WIP
 
 
