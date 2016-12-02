@@ -1,24 +1,23 @@
 # Remote Video
 Remote video utils with Javascript.
-WIP
+Capture video with video4linux from webcam, encode to webm with ffmpeg, stream to stream-m.
 
 
 
-#### Features (wip):
+#### Features:
 - capture
 - webcam
 - webm
 - range streaming
 - ffmpeg
-- motion detection
-- ..
+- motion detection (todo)
 
 
-## Installation
-wip
 
-## Update (to latest version)
-wip
+## Operate
+./start.sh
+./stop.sh
+./status
 
 ### FAQ
 tbd
@@ -26,12 +25,10 @@ tbd
 ## Contribute (developers)
 ```sh
 $ git clone https://github.com/geco/remote-video.git
-$ npm install
-$ npm start
 ```
 
 ## About
-tbd
+I use these utils to remotely view my usb webcam.
 
 ## License
 MIT &copy; 2016
