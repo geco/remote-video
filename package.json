@@ -1,6 +1,6 @@
 {
   "name": "remote-video",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Remote video utils with Javascript",
   "main": "stream.js",
   "scripts": {
