@@ -1,6 +1,6 @@
 {
   "name": "remote-video",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Remote video utils with Javascript",
   "main": "stream.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "webm",
     "ffmpeg",
     "video4linux",
-    "m-stream"
+    "m-stream",
+    "motion"
   ],
   "author": "geco (https://github.com/geco)",
   "license": "MIT",

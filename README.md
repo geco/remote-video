@@ -10,7 +10,7 @@ Capture video with video4linux from webcam, encode to webm with ffmpeg, stream t
 - webm
 - range streaming
 - ffmpeg
-- motion detection (todo)
+- motion detection
 
 
 
