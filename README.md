@@ -10,7 +10,7 @@ Capture video with video4linux from webcam, encode to webm with ffmpeg, stream t
 - webm
 - range streaming
 - ffmpeg
-- motion detection
+- motion detection with email notify
 
 
 
@@ -30,5 +30,7 @@ $ git clone https://github.com/geco/remote-video.git
 ## About
 I use these utils to remotely view my usb webcam.
 
+
 ## License
-MIT &copy; 2016
+MIT &copy; 2016<br>
+Credits to https://github.com/sahat/hackathon-starter for boilerplate of web control server.
