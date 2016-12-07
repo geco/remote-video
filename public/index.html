@@ -1,0 +1,13 @@
+<html>
+<body bgcolor="000000">
+  <img id="img1" src='#' border="0" width=49%></img>
+  <img id="img2" src='#' border="0" width=49%></img>
+  <audio id="audio1" src="#" autoplay controls muted>
+  Your browser does not support the <code>audio</code> element.
+  </audio>
+  <script type="text/javascript">
+    document.getElementById("img1").src = location.protocol + '//' + location.hostname + ':50001';
+    document.getElementById("img2").src = location.protocol + '//' + location.hostname + ':50002';
+    document.getElementById("audio1").src = location.protocol + '//' + location.hostname + ':50030/stream.mp3';
+  </script>
+</html>

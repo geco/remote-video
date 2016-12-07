@@ -11,13 +11,14 @@ Capture video with video4linux from webcam, encode to webm with ffmpeg, stream t
 - range streaming
 - ffmpeg
 - motion detection with email notify
+- webcam audio capture via ffmpeg, pipe to node.js, convert to mp3 with lame and stream to browser
+- script to control motion detection status
 
 
 
 ## Operate
-./start.sh
-./stop.sh
-./status
+tbd
+
 
 ### FAQ
 tbd
