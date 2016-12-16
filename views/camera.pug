@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .page-header
+    h3 Camera
+    hr
+    .row
+      .col-sm-6
+        h2 Main door
+        img(src=elements.img1, width='100%')
+      .col-sm-6
+        h2 Living room
+        img(src=elements.img2, width='100%')
+    .row
+      .col-sm-3
+        p
+          audio(src=elements.audio,autoplay,controls,muted)
+            Your browser does not support the <code>audio</code> element.

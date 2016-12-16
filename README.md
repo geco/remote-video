@@ -17,7 +17,8 @@ Capture video with video4linux from webcam, encode to webm with ffmpeg, stream t
 
 
 ## Operate
-tbd
+yarn
+node app.js
 
 
 ### FAQ

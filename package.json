@@ -1,6 +1,6 @@
 {
   "name": "remote-video",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "Remote video utils with Javascript",
   "scripts": {
     "start": "node app.js",

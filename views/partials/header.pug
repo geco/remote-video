@@ -8,7 +8,7 @@
         span.icon-bar
       a.navbar-brand(href='/')
         i.fa.fa-cube
-        | Project name
+        | Remote video
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li(class=(title == 'Home') ? 'active' : undefined)
@@ -19,6 +19,8 @@
           a(href='/contact') Contact
         li
           a(href='/status') Status
+        li(class=(title == 'Camera') ? 'active' : undefined)
+          a(href='/camera') Camera
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
