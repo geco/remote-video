@@ -3,7 +3,8 @@
  * Home page.
  */
 exports.index = (req, res) => {
-  res.render('home', {
+  res.redirect('/camera')
+  /*res.render('home', {
     title: 'Home'
-  });
+  });*/
 };

@@ -16,7 +16,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
-const expressStatusMonitor = require('express-status-monitor');
+const expressStatusMonitor = require('express-status-monitor')();
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
@@ -36,6 +36,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const cameraController = require('./controllers/camera');
+const detectionController = require('./controllers/detection');
 
 /**
  * API keys and Passport configuration.
@@ -64,13 +65,15 @@ app.set('port', process.env.PORT || 10000);
 app.set('host', process.env.HOST || '0.0.0.0');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(expressStatusMonitor());
+app.use(expressStatusMonitor);
 app.use(compression());
 app.use(sass({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public')
 }));
-app.use(logger('dev'));
+app.use(logger('combined', {
+  skip: function (req, res) { return res.statusCode < 400 }
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
@@ -81,7 +84,9 @@ app.use(session({
   store: new MongoStore({
     url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
     autoReconnect: true
-  })
+  }),
+  cookie: { maxAge: 1000*60*60*24*7}
+
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -136,6 +141,8 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/camera', passportConfig.isAuthenticated, cameraController.index);
+app.get('/status', passportConfig.isAuthenticated, expressStatusMonitor.pageRoute);
+app.get('/detection', passportConfig.isAuthenticated, detectionController.index);
 
 /**
  * API examples routes.

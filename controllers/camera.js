@@ -1,7 +1,4 @@
-/**
- * GET /
- * Home page.
- */
+
 exports.index = (req, res) => {
   const baseAddress = req.protocol+'://'+req.hostname;
   res.render('camera', {

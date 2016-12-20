@@ -1,18 +1,48 @@
 extends layout
-
 block content
+  script.
+              function serialize( obj ) {
+                return Object.keys(obj).reduce(function(a,k){a.push(k+'='+encodeURIComponent(obj[k]));return a},[]).join('&')
+              }
+              function invoke(params){
+                  var req = new XMLHttpRequest();
+                  req.open("GET","/detection"+"?"+serialize(params), true);
+                  req.onreadystatechange = function(){
+                      if(req.readyState == 4 && req.status == 200){
+                          var parsed = JSON.parse(req.responseText);
+                          document.getElementById("status1").innerHTML = parsed.status1;
+                          document.getElementById("status2").innerHTML = parsed.status2;
+                      }
+                  }
+                  req.send(null);
+              }
+              setInterval(function() {invoke({action:'status'})}, 1000)
+              document.addEventListener("DOMContentLoaded",function(){
+                document.getElementById("startall").onclick = function() {invoke({action:'start', target:'all'})};
+                document.getElementById("stopall").onclick = function() {invoke({action:'pause', target:'all'})};
+              });
   .page-header
-    h3 Camera
-    hr
     .row
       .col-sm-6
         h2 Main door
+        #status1
         img(src=elements.img1, width='100%')
       .col-sm-6
         h2 Living room
+        #status2
         img(src=elements.img2, width='100%')
+    hr
     .row
       .col-sm-3
         p
           audio(src=elements.audio,autoplay,controls,muted)
             Your browser does not support the <code>audio</code> element.
+    hr
+    .row
+      .col-sm-3
+        p Start detection ALL&nbsp;
+          button.btn.btn-success(id='startall')
+            i.fa.fa-play
+        p Stop detection ALL&nbsp;
+          button.btn.btn-danger(id='stopall')
+            i.fa.fa-stop
