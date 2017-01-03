@@ -272,6 +272,11 @@ passport.use(new GoogleStrategy({
           req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' });
           done(err);
         } else {
+          var permittedEmails = process.env.GOOGLE_PERMITTED_EMAILS.split(',');
+          if (permittedEmails.indexOf(profile.emails[0].value) == -1)  {
+            req.flash('errors', { msg: 'This email address is not permitted.' });
+            return done(err);
+          }
           const user = new User();
           user.email = profile.emails[0].value;
           user.google = profile.id;

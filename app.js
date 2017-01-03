@@ -19,6 +19,7 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor')();
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+const serveIndex = require('serve-index');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -36,6 +37,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const cameraController = require('./controllers/camera');
+const audioController = require('./controllers/audio');
 const detectionController = require('./controllers/detection');
 
 /**
@@ -118,7 +120,11 @@ app.use((req, res, next) => {
   }
   next();
 });
+
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use('/rec1', passportConfig.isAuthenticated, serveIndex(path.join(__dirname, 'public', 'rec1'), {'icons': true, 'view': 'details'}))
+app.use('/rec2', passportConfig.isAuthenticated, serveIndex(path.join(__dirname, 'public', 'rec2'), {'icons': true, 'view': 'details'}))
+
 
 /**
  * Primary app routes.
@@ -141,6 +147,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/camera', passportConfig.isAuthenticated, cameraController.index);
+app.get('/audio', passportConfig.isAuthenticated, audioController.index);
 app.get('/status', passportConfig.isAuthenticated, expressStatusMonitor.pageRoute);
 app.get('/detection', passportConfig.isAuthenticated, detectionController.index);
 
