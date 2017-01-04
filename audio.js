@@ -27,4 +27,4 @@ var lame = require('lame');
     encoder.pipe(res);
   });
 
-  var server = app.listen(3000, '0.0.0.0');
+  var server = app.listen(3000, '127.0.0.1');

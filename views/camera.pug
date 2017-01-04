@@ -4,38 +4,35 @@ block content
               function serialize( obj ) {
                 return Object.keys(obj).reduce(function(a,k){a.push(k+'='+encodeURIComponent(obj[k]));return a},[]).join('&')
               }
-              function invoke(params){
+              function invoke(params, camerasnumber){
                   var req = new XMLHttpRequest();
                   req.open("GET","/detection"+"?"+serialize(params), true);
                   req.onreadystatechange = function(){
                       if(req.readyState == 4 && req.status == 200){
                           var parsed = JSON.parse(req.responseText);
-                          document.getElementById("status1").innerHTML = parsed.status1;
-                          document.getElementById("status2").innerHTML = parsed.status2;
+                          for (var i=0; i<camerasnumber; i++) document.getElementById("status"+(i+1)).innerHTML = parsed.status[i];
                       }
                   }
                   req.send(null);
               }
-              setInterval(function() {invoke({action:'status'})}, 1000)
               document.addEventListener("DOMContentLoaded",function(){
+                var cameras=!{JSON.stringify(cameras).replace(/<\//g, '<\\/')};
+                setInterval(function() {invoke({action:'status'}, cameras.length)}, 1000)
                 document.getElementById("startall").onclick = function() {invoke({action:'start', target:'all'})};
                 document.getElementById("stopall").onclick = function() {invoke({action:'pause', target:'all'})};
               });
   .page-header
     .row
-      .col-sm-6
-        h2 Main door
-        #status1
-        img(src=elements.img1, width='100%')
-      .col-sm-6
-        h2 Living room
-        #status2
-        img(src=elements.img2, width='100%')
+      each camera, index in cameras
+        .col-sm-6
+          h2 #{camera.name}
+          div(id="status"+(index+1))
+          img(src=camera.address, width='100%')
     hr
     .row
       .col-sm-3
         p
-          audio(src=elements.audio,autoplay,controls,muted)
+          audio(src=audio,autoplay,controls,muted)
             Your browser does not support the <code>audio</code> element.
     hr
     .row

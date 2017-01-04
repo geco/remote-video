@@ -1,10 +1,10 @@
 
 exports.index = (req, res) => {
-  const baseAddress = req.protocol+'://'+req.hostname;
+  const baseAddress = req.protocol+'://' + req.get('Host');
   res.render('audio', {
     title: 'Audio',
     elements: {
-      audio : baseAddress+':50030/stream.mp3'
+      audio : baseAddress + '/audiostream/stream.mp3'
     }
   });
 };

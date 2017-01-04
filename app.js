@@ -22,6 +22,7 @@ const multer = require('multer');
 const serveIndex = require('serve-index');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const proxy = require('http-proxy-middleware');
 
 
 /**
@@ -150,6 +151,35 @@ app.get('/camera', passportConfig.isAuthenticated, cameraController.index);
 app.get('/audio', passportConfig.isAuthenticated, audioController.index);
 app.get('/status', passportConfig.isAuthenticated, expressStatusMonitor.pageRoute);
 app.get('/detection', passportConfig.isAuthenticated, detectionController.index);
+
+/**
+ * Proxy routes
+ */
+// cams
+var camList = process.env.CAM_HOSTS.split(',');
+var camOptions = [];
+var camProxies = [];
+camList.forEach((cam, index) => {
+  var camSplitted = cam.split('|')
+  camOptions.push({
+     target: camSplitted[1], // target host
+     pathRewrite: {
+       '^/cam.?' : ''           // remove path
+     }
+
+  })
+  camProxies.push(proxy(camOptions[camOptions.length-1]))
+  app.use('/cam'+(index+1), passportConfig.isAuthenticated, camProxies[camProxies.length-1])
+})
+var audioOptions = {
+   target: process.env.AUDIO_HOST, // target host
+   pathRewrite: {
+     '^/audiostream/' : '/' // remove /audiostream/ path
+   }
+}
+// audio
+var audioProxy = proxy(audioOptions);
+app.use('/audiostream', passportConfig.isAuthenticated, audioProxy);
 
 /**
  * API examples routes.
