@@ -9,6 +9,7 @@ block content
                   req.open("GET","/detection"+"?"+serialize(params), true);
                   req.onreadystatechange = function(){
                       if(req.readyState == 4 && req.status == 200){
+                          if ((params.action == 'start') || (params.action == 'pause')) window.scrollTo(0, 0);
                           var parsed = JSON.parse(req.responseText);
                           for (var i=0; i<camerasnumber; i++) document.getElementById("status"+(i+1)).innerHTML = parsed.status[i];
                       }
@@ -37,9 +38,12 @@ block content
     hr
     .row
       .col-sm-3
-        p Start detection ALL&nbsp;
-          button.btn.btn-success(id='startall')
-            i.fa.fa-play
-        p Stop detection ALL&nbsp;
-          button.btn.btn-danger(id='stopall')
-            i.fa.fa-stop
+        button.btn.btn-success.btn-block.btn-md(id='startall')
+          i.fa.fa-play
+          |  Start detection on all cameras
+    hr
+    .row
+      .col-sm-3
+        button.btn.btn-danger.btn-block.btn-md(id='stopall')
+          i.fa.fa-stop
+          |  Stop detection on all cameras
